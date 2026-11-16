@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DRONE OS — Autonomous Drone Simulator</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <button class="menu-button">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="brand-logo">
+                <i class="fa-solid fa-drone"></i>
+            </div>
+
+            <div>
+                <h1>DRONE <span>OS</span></h1>
+                <p>Autonomous Drone Simulator</p>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <button class="nav-link active">
+                <i class="fa-solid fa-house"></i>
+                <span>DASHBOARD</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-drone"></i>
+                <span>DRONE</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-regular fa-folder-open"></i>
+                <span>MISSIONS</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-list-check"></i>
+                <span>TASKS</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-chart-simple"></i>
+                <span>TELEMETRY</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-cube"></i>
+                <span>RESOURCES</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-database"></i>
+                <span>DATABASE</span>
+            </button>
+
+            <button class="nav-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>SETTINGS</span>
+            </button>
+
+        </nav>
+
+
+        <!-- System health -->
+
+        <div class="system-health">
+
+            <div class="health-title">
+                SYSTEM HEALTH
+            </div>
+
+            <div class="health-circle">
+
+                <div class="health-inner">
+
+                    <strong>98%</strong>
+
+                    <span>EXCELLENT</span>
+
+                </div>
+
+            </div>
+
+            <div class="health-wave">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-version">
+            DRONE OS v1.0.0
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-brand-mobile">
+                <i class="fa-solid fa-drone"></i>
+                <strong>DRONE OS</strong>
+            </div>
+
+
+            <div class="system-online">
+
+                <span class="pulse-dot"></span>
+
+                <strong>SYSTEM ONLINE</strong>
+
+                <div class="mini-wave">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <div class="clock">
+
+                    <strong id="systemTime">
+                        --:--:--
+                    </strong>
+
+                    <span>24 MAY 2025</span>
+
+                </div>
+
+
+                <button class="header-button notification-button">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <b>3</b>
+
+                </button>
+
+
+                <button class="header-button">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+
+
+                <button class="avatar-button">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             DASHBOARD CONTENT
+             ===================================================== -->
+
+        <div class="dashboard">
+
+
+            <!-- =================================================
+                 TOP ROW
+                 ================================================= -->
+
+            <section class="top-grid">
+
+
+                <!-- DRONE STATUS -->
+
+                <article class="panel drone-status">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <span class="panel-label">DRONE STATUS</span>
+
+                            <div class="drone-name">
+                                Falcon X1
+                            </div>
+                        </div>
+
+                        <span class="active-badge">
+                            ACTIVE
+                        </span>
+
+                    </div>
+
+
+                    <div class="drone-visual">
+
+                        <div class="drone-orbit orbit-a"></div>
+                        <div class="drone-orbit orbit-b"></div>
+
+                        <div class="drone-floor"></div>
+
+                        <div class="drone-glow"></div>
+
+                        <img
+                            src="assets/drone.png"
+                            alt="Falcon X1 Drone"
+                        >
+
+                    </div>
+
+
+                    <div class="drone-metrics">
+
+                        <div class="small-metric">
+
+                            <i class="fa-solid fa-arrow-up"></i>
+
+                            <div>
+                                <span>ALTITUDE</span>
+                                <strong>
+                                    <b id="altitudeValue">124</b> m
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="small-metric">
+
+                            <i class="fa-solid fa-gauge-high"></i>
+
+                            <div>
+                                <span>SPEED</span>
+                                <strong>
+                                    <b id="speedValue">18</b> m/s
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="small-metric">
+
+                            <i class="fa-solid fa-battery-three-quarters"></i>
+
+                            <div>
+                                <span>BATTERY</span>
+                                <strong>
+                                    <b id="batteryValue">87</b>%
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="small-metric">
+
+                            <i class="fa-solid fa-signal"></i>
+
+                            <div>
+                                <span>SIGNAL</span>
+                                <strong>
+                                    <b id="signalValue">96</b>%
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- LIVE LOCATION -->
+
+                <article class="panel location-panel">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-title">
+                            LIVE LOCATION
+                        </div>
+
+                        <span class="gps-status">
+                            <i class="fa-solid fa-location-dot"></i>
+                            GPS
+                        </span>
+
+                    </div>
+
+
+                    <div class="map">
+
+                        <div class="map-grid"></div>
+
+                        <div class="map-building building-1"></div>
+                        <div class="map-building building-2"></div>
+                        <div class="map-building building-3"></div>
+                        <div class="map-building building-4"></div>
+                        <div class="map-building building-5"></div>
+                        <div class="map-building building-6"></div>
+
+                        <svg class="route" viewBox="0 0 600 400">
+
+                            <path
+                                d="M110 90
+                                   C180 130 145 175 250 190
+                                   C335 203 280 250 390 275
+                                   C445 287 450 330 500 335"
+                            />
+
+                        </svg>
+
+
+                        <div class="map-point start-point">
+                            <i class="fa-solid fa-drone"></i>
+                        </div>
+
+                        <div class="map-point current-point">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+
+                        <div class="map-info">
+
+                            <span>LAT</span>
+                            <strong>28.6139° N</strong>
+
+                            <span>LON</span>
+                            <strong>77.2090° E</strong>
+
+                            <span>ALT</span>
+                            <strong id="mapAltitude">124 m</strong>
+
+                        </div>
+
+
+                        <div class="map-controls">
+
+                            <button>+</button>
+                            <button>−</button>
+                            <button>
+                                <i class="fa-solid fa-crosshairs"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TELEMETRY -->
+
+                <article class="panel telemetry-overview">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-title">
+                            TELEMETRY OVERVIEW
+                        </div>
+
+                        <button class="live-select">
+                            Live
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div class="telemetry-label">
+
+                            <span>ALTITUDE</span>
+
+                            <strong>
+                                <b id="telemetryAltitude">124</b> m
+                            </strong>
+
+                        </div>
+
+                        <div class="mini-graph cyan">
+                            <div></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div class="telemetry-label">
+
+                            <span>SPEED</span>
+
+                            <strong>
+                                <b id="telemetrySpeed">18</b> m/s
+                            </strong>
+
+                        </div>
+
+                        <div class="mini-graph green">
+                            <div></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div class="telemetry-label">
+
+                            <span>BATTERY</span>
+
+                            <strong>
+                                <b id="telemetryBattery">87</b>%
+                            </strong>
+
+                        </div>
+
+                        <div class="mini-graph orange">
+                            <div></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="telemetry-row">
+
+                        <div class="telemetry-label">
+
+                            <span>SIGNAL STRENGTH</span>
+
+                            <strong>
+                                <b id="telemetrySignal">96</b>%
+                            </strong>
+
+                        </div>
+
+                        <div class="mini-graph purple">
+                            <div></div>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 RESOURCE BAR
+                 ================================================= -->
+
+            <section class="resource-panel panel">
+
+
+                <div class="resource-gauge">
+
+                    <div class="gauge cpu-gauge">
+
+                        <div>
+                            <strong id="cpuValue">42%</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="resource-info">
+                        <span>CPU USAGE</span>
+                        <small>Core Load</small>
+
+                        <div class="resource-bars">
+                            <i></i><i></i><i></i><i></i><i></i>
+                            <i></i><i></i><i></i>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="resource-gauge">
+
+                    <div class="gauge memory-gauge">
+
+                        <div>
+                            <strong id="memoryValue">61%</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="resource-info">
+                        <span>MEMORY USAGE</span>
+                        <small>4.9 / 8 GB</small>
+                    </div>
+
+                </div>
+
+
+                <div class="resource-gauge">
+
+                    <div class="gauge storage-gauge">
+
+                        <div>
+                            <strong id="storageValue">73%</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="resource-info">
+                        <span>STORAGE</span>
+                        <small>36.5 / 50 GB</small>
+                    </div>
+
+                </div>
+
+
+                <div class="resource-gauge">
+
+                    <div class="gauge power-gauge">
+
+                        <div>
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="resource-info">
+                        <span>POWER CONSUMPTION</span>
+                        <strong id="powerValue">215 W</strong>
+                        <small class="optimal">Optimal</small>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 BOTTOM GRID
+                 ================================================= -->
+
+            <section class="bottom-grid">
+
+
+                <!-- ACTIVE TASKS -->
+
+                <article class="panel tasks-panel">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-title">
+                            ACTIVE TASKS
+                        </div>
+
+                        <button class="view-button">
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div class="task-table">
+
+                        <div class="task-header">
+                            <span>TASK NAME</span>
+                            <span>PRIORITY</span>
+                            <span>STATUS</span>
+                            <span>CPU</span>
+                            <span>MEMORY</span>
+                            <span>TIME</span>
+                        </div>
+
+
+                        <div class="task-row">
+
+                            <span class="task-name">
+                                <i class="fa-solid fa-plane-up"></i>
+                                Navigation
+                            </span>
+
+                            <span>
+                                <b class="priority critical">
+                                    CRITICAL
+                                </b>
+                            </span>
+
+                            <span>
+                                <b class="status running">
+                                    RUNNING
+                                </b>
+                            </span>
+
+                            <span>32%</span>
+                            <span>512 MB</span>
+                            <span>00:18:32</span>
+
+                        </div>
+
+
+                        <div class="task-row">
+
+                            <span class="task-name">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                Obstacle Detection
+                            </span>
+
+                            <span>
+                                <b class="priority high">
+                                    HIGH
+                                </b>
+                            </span>
+
+                            <span>
+                                <b class="status running">
+                                    RUNNING
+                                </b>
+                            </span>
+
+                            <span>18%</span>
+                            <span>256 MB</span>
+                            <span>00:18:30</span>
+
+                        </div>
+
+
+                        <div class="task-row">
+
+                            <span class="task-name">
+                                <i class="fa-solid fa-camera"></i>
+                                Camera Capture
+                            </span>
+
+                            <span>
+                                <b class="priority medium">
+                                    MEDIUM
+                                </b>
+                            </span>
+
+                            <span>
+                                <b class="status running">
+                                    RUNNING
+                                </b>
+                            </span>
+
+                            <span>12%</span>
+                            <span>128 MB</span>
+                            <span>00:18:28</span>
+
+                        </div>
+
+
+                        <div class="task-row">
+
+                            <span class="task-name">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                Telemetry Upload
+                            </span>
+
+                            <span>
+                                <b class="priority low">
+                                    LOW
+                                </b>
+                            </span>
+
+                            <span>
+                                <b class="status running">
+                                    RUNNING
+                                </b>
+                            </span>
+
+                            <span>8%</span>
+                            <span>64 MB</span>
+                            <span>00:18:20</span>
+
+                        </div>
+
+
+                        <div class="task-row">
+
+                            <span class="task-name">
+                                <i class="fa-solid fa-database"></i>
+                                Data Logging
+                            </span>
+
+                            <span>
+                                <b class="priority low">
+                                    LOW
+                                </b>
+                            </span>
+
+                            <span>
+                                <b class="status waiting">
+                                    WAITING
+                                </b>
+                            </span>
+
+                            <span>0%</span>
+                            <span>32 MB</span>
+                            <span>--:--:--</span>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- RIGHT SIDE -->
+
+                <div class="right-column">
+
+
+                    <!-- CURRENT MISSION -->
+
+                    <article class="panel mission-card">
+
+                        <div class="panel-heading">
+
+                            <div class="panel-title">
+                                CURRENT MISSION
+                            </div>
+
+                            <span class="mission-badge">
+                                ACTIVE
+                            </span>
+
+                        </div>
+
+
+                        <h2>
+                            Surveillance Mission
+                        </h2>
+
+
+                        <div class="mission-details">
+
+                            <div>
+                                <span>MISSION ID</span>
+                                <strong>MSN-2025-05-24-001</strong>
+                            </div>
+
+                            <div>
+                                <span>START TIME</span>
+                                <strong>12:30:00</strong>
+                            </div>
+
+                            <div>
+                                <span>DURATION</span>
+                                <strong id="missionDuration">
+                                    00:18:32
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="mission-progress">
+
+                            <div>
+                                <span>PROGRESS</span>
+
+                                <strong id="missionProgress">
+                                    62%
+                                </strong>
+                            </div>
+
+                            <div class="mission-bar">
+                                <span
+                                    id="missionProgressBar"
+                                    style="width:62%"
+                                ></span>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- EVENTS -->
+
+                    <article class="panel events-card">
+
+                        <div class="panel-heading">
+
+                            <div class="panel-title">
+                                SYSTEM EVENTS
+                            </div>
+
+                            <button class="view-button">
+                                View All
+                            </button>
+
+                        </div>
+
+
+                        <div class="events">
+
+                            <div class="event">
+
+                                <i class="fa-regular fa-circle-check success"></i>
+
+                                <span>12:48:21</span>
+
+                                <strong>
+                                    Waypoint 3 reached
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event">
+
+                                <i class="fa-solid fa-camera info"></i>
+
+                                <span>12:47:58</span>
+
+                                <strong>
+                                    Image captured
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event">
+
+                                <i class="fa-solid fa-triangle-exclamation warning"></i>
+
+                                <span>12:47:31</span>
+
+                                <strong>
+                                    Obstacle detected
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event">
+
+                                <i class="fa-solid fa-circle-plus success"></i>
+
+                                <span>12:46:12</span>
+
+                                <strong>
+                                    Battery optimized
+                                </strong>
+
+                            </div>
+
+
+                            <div class="event">
+
+                                <i class="fa-solid fa-location-arrow info"></i>
+
+                                <span>12:45:09</span>
+
+                                <strong>
+                                    Altitude adjusted
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <span>DRONE OS 1.0.0</span>
+
+            <span>
+                AUTONOMOUS DRONE OPERATING SYSTEM
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/fleet-map.js"></script>
+
+</body>
+</html>
